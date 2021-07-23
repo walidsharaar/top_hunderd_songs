@@ -3,6 +3,7 @@ import requests
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+
 #website url
 URL = "https://www.billboard.com/charts/hot-100/"
 #Spotify Authentication
@@ -40,4 +41,16 @@ sp = spotipy.Spotify(
 #get user id
 user_id = sp.current_user()["id"]
 print(user_id)
+
+song_uris =[]
+year= user_date.split("-")[0]
+
+for song in song_names:
+    result= sp.search(q=f"track :{song} year:{year}",type="track")
+    print(result)
+    try:
+        uri= result["track"]["items"][0]["uri"]
+        song_uris.append(uri)
+    except IndexError:
+        print(f"{song} doesn't exist in Spotify. Skipped")
 
