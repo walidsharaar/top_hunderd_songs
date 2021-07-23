@@ -54,3 +54,12 @@ for song in song_names:
     except IndexError:
         print(f"{song} doesn't exist in Spotify. Skipped")
 
+#create private playlist in spotify
+
+playlist= sp.user_playlist_create(user=user_id, name=f"{user_date} Billboard 100",public=False)
+
+#Adding found songs into the playlist
+
+sp.playlist_add_items(playlist_id=playlist["id"],items=song_uris)
+
+
